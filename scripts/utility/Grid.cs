@@ -24,7 +24,12 @@ public class Grid
 
     public Cell this[int x, int y]
     {
-        get => _grid[x + (y * Height)];
+        get
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+                return new Cell(GridManager.EMPTY);
+            return _grid[x + (y * Height)];
+        }
         set => _grid[x + (y * Height)] = value;
     }
 }
