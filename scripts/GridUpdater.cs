@@ -1,0 +1,84 @@
+using Godot;
+using System;
+using SquareVerse.Utility;
+
+namespace SquareVerse;
+
+public partial class GridUpdater : Node
+{
+    public override void _Ready()
+    {
+        // Demo rules
+        // 1: blue
+        GridManager.Instance.Kinds.Add(new Kind(
+            new Color("blue")
+            ));
+        // 2: orange
+        var neighborhood1 = new Neighborhood(
+            1,0,0,
+            0,  0,
+            0,0,0
+            );
+        // empty cells with blue as their TL become blue
+        GridManager.Instance.Kinds[0].AddRule(new Rule(
+            neighborhood1, 1
+            ));
+        GridManager.Instance.Grid[0, 0] = new Cell(1);
+    }
+    
+    // Physics process is a fixed update method. Thus, it is appropriate for simulations, especially
+    // ones that take a variable amount of time to execute.
+    public override void _Process(double delta)
+    {
+        Update();        
+    }
+
+    public void Update()
+    {
+        var grid = GridManager.Instance.Grid;
+        var kinds = GridManager.Instance.Kinds;
+        var newGrid = new Grid(grid);
+        for (int x = 0; x < grid.Width; x++)
+        {
+            for (int y = 0; y < grid.Height; y++)
+            {
+                var cell = grid[x, y];
+                var kind = kinds[cell.Type];
+                foreach (var rule in kind.Rules)
+                {
+                    if (CheckNeighborhood(
+                            grid,
+                            x, y,
+                            rule.Neighborhood
+                        ))
+                    {
+                        newGrid[x, y] = new Cell(rule.NewCenter);
+                    }
+                }
+            }
+        }
+        GridManager.Instance.Grid = newGrid;
+    }
+
+    private static bool CheckNeighborhood(Grid grid, int atX, int atY, Neighborhood neighborhood)
+    {
+        if (grid[atX - 1, atY - 1].Type != neighborhood.TL)
+            return false;
+        if (grid[atX, atY - 1].Type != neighborhood.Top)
+            return false;
+        if (grid[atX + 1, atY - 1].Type != neighborhood.TR)
+            return false;
+        if (grid[atX - 1, atY].Type != neighborhood.Left)
+            return false;
+        // Center cell already known
+        if (grid[atX + 1, atY].Type != neighborhood.Right)
+            return false;
+        if (grid[atX - 1, atY + 1].Type != neighborhood.BL)
+            return false;
+        if (grid[atX, atY + 1].Type != neighborhood.Bottom)
+            return false;
+        if (grid[atX + 1, atY + 1].Type != neighborhood.BR)
+            return false;
+        return true;
+    }
+}
