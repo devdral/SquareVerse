@@ -21,14 +21,13 @@ public partial class CameraManager : Camera2D
     {
         if (ev is InputEventMouseMotion mouseMotion)
         {
-            GD.Print("Pan detected.");
             if (_panning)
             {
                 var vel = mouseMotion.Relative;
                 vel *= PanSpeed;
                 vel /= Zoom.X;
                 vel = -vel;
-                Position += vel;         
+                Position += vel;
             }
         }
         else if (ev is InputEventMouseButton mouseButton)
