@@ -1,4 +1,4 @@
-﻿namespace SquareVerse.scripts;
+﻿namespace SquareVerse.Utility;
 
 public class Grid
 {
@@ -12,6 +12,14 @@ public class Grid
         _grid = new Cell[width * height];
         Width = width;
         Height = height;
+    }
+
+    public Grid(Grid other)
+    {
+        Width = other.Width;
+        Height = other.Height;
+        _grid = new Cell[Width * Height];
+        other._grid.CopyTo(_grid, 0);
     }
 
     public Cell this[int x, int y]
