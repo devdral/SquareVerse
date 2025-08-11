@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=4 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
+[ext_resource type="Script" uid="uid://bobfchplidsbx" path="res://scripts/CameraManager.cs" id="3_c6dvc"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -10,3 +11,9 @@ script = ExtResource("1_echbf")
 
 [node name="GridUpdater" type="Node" parent="."]
 script = ExtResource("2_ibiss")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("3_c6dvc")
+PanSpeed = 1.0
+ZoomSpeed = 0.25

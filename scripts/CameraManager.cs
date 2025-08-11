@@ -1,0 +1,49 @@
+using Godot;
+using System;
+
+namespace SquareVerse;
+
+public partial class CameraManager : Camera2D
+{
+    [Export] public float PanSpeed = 25f;
+    [Export] public float ZoomSpeed = 5f;
+    
+    private bool _panning = false;
+    
+    public override void _Input(InputEvent ev)
+    {
+        if (ev is InputEventMouseMotion mouseMotion)
+        {
+            GD.Print("Pan detected.");
+            if (_panning)
+            {
+                var vel = mouseMotion.Relative;
+                vel *= PanSpeed;
+                vel /= Zoom.X;
+                vel = -vel;
+                Position += vel;         
+            }
+        }
+        else if (ev is InputEventMouseButton mouseButton)
+        {
+            if (mouseButton.ButtonIndex == MouseButton.WheelUp)
+            {
+                var zoomAmount = mouseButton.Factor * ZoomSpeed;
+                Zoom += new Vector2(zoomAmount, zoomAmount);
+            }
+            else if (mouseButton.ButtonIndex == MouseButton.WheelDown)
+            {
+                var zoomAmount = -(mouseButton.Factor * ZoomSpeed);
+                Zoom += new Vector2(zoomAmount, zoomAmount);
+            }
+            else if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
+            {
+                _panning = true;
+            }
+            else if (mouseButton.ButtonIndex == MouseButton.Left && !mouseButton.Pressed)
+            {
+                _panning = false;
+            }
+        }
+    }
+}
