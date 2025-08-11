@@ -9,6 +9,13 @@ public partial class CameraManager : Camera2D
     [Export] public float ZoomSpeed = 5f;
     
     private bool _panning = false;
+
+    public override void _Ready()
+    {
+        var grid = GridManager.Instance.Grid;
+        var gridCenter = new Vector2(grid.Width*10 / 2f, grid.Height*10 / 2f);
+        Position = gridCenter;
+    }
     
     public override void _Input(InputEvent ev)
     {
