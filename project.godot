@@ -15,6 +15,10 @@ run/main_scene="uid://ry2vnvuwoua"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GridManager="*res://scripts/GridManager.cs"
+
 [dotnet]
 
 project/assembly_name="SquareVerse"
