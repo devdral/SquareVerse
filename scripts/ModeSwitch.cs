@@ -16,6 +16,14 @@ public partial class ModeSwitch : VBoxContainer
 	{
 		EnterEdit.Disabled = UIManager.Instance.Mode;
 		EnterView.Disabled = !UIManager.Instance.Mode;
+		if (UIManager.Instance.Mode == UIManager.VIEW)
+		{
+			GetTree().CallGroup("EditControl", "hide");
+		}
+		else
+		{
+			GetTree().CallGroup("EditControl", "show");
+		}
 	}
 
 	public void OnEnterEdit()

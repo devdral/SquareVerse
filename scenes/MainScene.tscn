@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=8 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
 [ext_resource type="Script" uid="uid://bobfchplidsbx" path="res://scripts/CameraManager.cs" id="3_c6dvc"]
 [ext_resource type="Script" uid="uid://7bsccdd1sncf" path="res://scripts/ModeSwitch.cs" id="4_611at"]
 [ext_resource type="Script" uid="uid://pwtqkxr43qet" path="res://scripts/EditCursor.cs" id="4_k24pf"]
+[ext_resource type="Script" uid="uid://c5v4eummdfugr" path="res://scripts/AddKindPopup.cs" id="6_ygjfp"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
 
@@ -31,7 +32,8 @@ script = ExtResource("4_k24pf")
 [node name="TopPanel" type="Panel" parent="UserInterface"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 101.0
+offset_top = 2.0
+offset_bottom = 103.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -66,5 +68,58 @@ layout_mode = 2
 disabled = true
 text = "Viewing"
 
+[node name="PaletteLabel" type="Label" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+layout_mode = 2
+text = "Palette"
+
+[node name="AddKind" type="Button" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+layout_mode = 2
+size_flags_vertical = 4
+text = "+"
+
+[node name="AddKindPopup" type="Window" parent="."]
+title = "Add Color to Palette"
+initial_position = 1
+size = Vector2i(350, 150)
+visible = false
+transient = true
+script = ExtResource("6_ygjfp")
+
+[node name="FormItems" type="VBoxContainer" parent="AddKindPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -35.0
+offset_right = 56.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="ColorPick" type="HBoxContainer" parent="AddKindPopup/FormItems"]
+layout_mode = 2
+
+[node name="ColorPickLabel" type="Label" parent="AddKindPopup/FormItems/ColorPick"]
+layout_mode = 2
+text = "Color"
+horizontal_alignment = 1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="AddKindPopup/FormItems/ColorPick"]
+layout_mode = 2
+text = "Select Color"
+
+[node name="Add" type="Button" parent="AddKindPopup/FormItems"]
+layout_mode = 2
+text = "Add
+"
+
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
+[connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
+[connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]
