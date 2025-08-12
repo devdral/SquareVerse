@@ -30,7 +30,8 @@ public partial class GridUpdater : Node
     // ones that take a variable amount of time to execute.
     public override void _Process(double delta)
     {
-        Update();        
+        if (!UIManager.Instance.Paused)
+            Update();
     }
 
     public void Update()

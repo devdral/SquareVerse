@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
 [ext_resource type="Script" uid="uid://bobfchplidsbx" path="res://scripts/CameraManager.cs" id="3_c6dvc"]
+[ext_resource type="Script" uid="uid://pwtqkxr43qet" path="res://scripts/EditCursor.cs" id="4_k24pf"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -17,3 +18,7 @@ position = Vector2(576, 324)
 script = ExtResource("3_c6dvc")
 PanSpeed = 1.0
 ZoomSpeed = 0.25
+
+[node name="EditCursor" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_k24pf")

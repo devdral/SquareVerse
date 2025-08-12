@@ -19,6 +19,7 @@ public partial class CameraManager : Camera2D
     
     public override void _Input(InputEvent ev)
     {
+        if (UIManager.Instance.Mode == UIManager.EDIT) return;
         if (ev is InputEventMouseMotion mouseMotion)
         {
             if (_panning)
