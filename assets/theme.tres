@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bmdolbpo18qq3"]
+
+[ext_resource type="StyleBox" uid="uid://kat0u3is5hrr" path="res://assets/stylebox.tres" id="1_5x3i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x3i2"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.303917, 0.366114, 0.456814, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_5x3i2")
+Panel/styles/panel = ExtResource("1_5x3i2")
