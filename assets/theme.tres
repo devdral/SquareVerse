@@ -1,19 +1,55 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bmdolbpo18qq3"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bmdolbpo18qq3"]
 
 [ext_resource type="StyleBox" uid="uid://kat0u3is5hrr" path="res://assets/stylebox.tres" id="1_5x3i2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl1kw"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.109549, 0.14018, 0.184853, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5x3i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2pqw"]
+bg_color = Color(0.476859, 0.680854, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x3i2"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.303917, 0.366114, 0.456814, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.627451, 0.780392, 0.952941, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu33j"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.636958, 0.793008, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [resource]
-Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_color = Color(0.0406175, 0.130165, 0.154469, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_wl1kw")
+Button/styles/focus = SubResource("StyleBoxEmpty_5x3i2")
+Button/styles/hover = SubResource("StyleBoxFlat_x2pqw")
 Button/styles/normal = SubResource("StyleBoxFlat_5x3i2")
+Button/styles/pressed = SubResource("StyleBoxFlat_lu33j")
 Panel/styles/panel = ExtResource("1_5x3i2")
