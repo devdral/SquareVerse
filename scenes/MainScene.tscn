@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=9 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
 [ext_resource type="Script" uid="uid://bobfchplidsbx" path="res://scripts/CameraManager.cs" id="3_c6dvc"]
 [ext_resource type="Script" uid="uid://7bsccdd1sncf" path="res://scripts/ModeSwitch.cs" id="4_611at"]
 [ext_resource type="Script" uid="uid://pwtqkxr43qet" path="res://scripts/EditCursor.cs" id="4_k24pf"]
+[ext_resource type="Script" uid="uid://nts0acpotae7" path="res://scripts/Palette.cs" id="6_1wiy7"]
 [ext_resource type="Script" uid="uid://c5v4eummdfugr" path="res://scripts/AddKindPopup.cs" id="6_ygjfp"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
@@ -72,8 +73,13 @@ text = "Viewing"
 layout_mode = 2
 text = "Palette"
 
+[node name="Palette" type="HBoxContainer" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+layout_mode = 2
+script = ExtResource("6_1wiy7")
+
 [node name="AddKind" type="Button" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "+"
 
@@ -121,5 +127,6 @@ text = "Add
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
+[connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]
