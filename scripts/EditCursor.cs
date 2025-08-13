@@ -26,6 +26,9 @@ public partial class EditCursor : Node2D
                 if (Input.IsMouseButtonPressed(MouseButton.Left))
                 {
                     grid[x, y] = new Cell(UIManager.Instance.SelectedKind);                    
+                } else if (Input.IsMouseButtonPressed(MouseButton.Right))
+                {
+                    grid[x, y] = new Cell(0);
                 }
                 Visible = true;
             }
