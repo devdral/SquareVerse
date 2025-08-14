@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=10 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
 [ext_resource type="Script" uid="uid://bobfchplidsbx" path="res://scripts/CameraManager.cs" id="3_c6dvc"]
 [ext_resource type="Script" uid="uid://7bsccdd1sncf" path="res://scripts/ModeSwitch.cs" id="4_611at"]
 [ext_resource type="Script" uid="uid://pwtqkxr43qet" path="res://scripts/EditCursor.cs" id="4_k24pf"]
+[ext_resource type="Script" uid="uid://bug1pnpvkv2eo" path="res://scripts/Controls.cs" id="5_u1u68"]
 [ext_resource type="Script" uid="uid://nts0acpotae7" path="res://scripts/Palette.cs" id="6_1wiy7"]
 [ext_resource type="Script" uid="uid://c5v4eummdfugr" path="res://scripts/AddKindPopup.cs" id="6_ygjfp"]
 
@@ -22,7 +23,7 @@ script = ExtResource("2_ibiss")
 position = Vector2(576, 324)
 script = ExtResource("3_c6dvc")
 PanSpeed = 1.0
-ZoomSpeed = 0.25
+ZoomSpeed = 0.1
 
 [node name="EditCursor" type="Node2D" parent="."]
 visible = false
@@ -44,13 +45,14 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 27.925
-offset_top = -34.0
-offset_right = 172.925
-offset_bottom = 34.0
+offset_left = 13.0
+offset_top = -35.5
+offset_right = 470.0
+offset_bottom = 42.5
 grow_vertical = 2
 theme = SubResource("Theme_c6dvc")
 theme_override_constants/separation = 12
+script = ExtResource("5_u1u68")
 
 [node name="ModesLabel" type="Label" parent="UserInterface/TopPanel/Items"]
 layout_mode = 2
@@ -83,12 +85,29 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "+"
 
+[node name="Reset" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Reset"
+
+[node name="PausePlay" type="Button" parent="UserInterface/TopPanel/Items"]
+custom_minimum_size = Vector2(61, 37)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Pause"
+
+[node name="Step" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Step"
+
 [node name="AddKindPopup" type="Window" parent="."]
 title = "Add Color to Palette"
 initial_position = 1
 size = Vector2i(350, 150)
 visible = false
 transient = true
+exclusive = true
 script = ExtResource("6_ygjfp")
 
 [node name="FormItems" type="VBoxContainer" parent="AddKindPopup"]
@@ -127,6 +146,9 @@ text = "Add
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/Reset" to="UserInterface/TopPanel/Items" method="OnReset"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/PausePlay" to="UserInterface/TopPanel/Items" method="OnTogglePause"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
 [connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]

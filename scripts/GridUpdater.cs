@@ -31,6 +31,17 @@ public partial class GridUpdater : Node
     public override void _Process(double delta)
     {
         if (!UIManager.Instance.Paused)
+            Step();
+        
+        if (Input.IsActionPressed("step"))
+        {
+            Update();
+        }
+    }
+
+    public void Step()
+    {
+        for (int i = 0; i < 8; i++)
             Update();
     }
 
