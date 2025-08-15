@@ -14,12 +14,19 @@ public partial class RuleEditor : VBoxContainer
     private PaintableButton _blColor     = new();
     private PaintableButton _bottomColor = new();
     private PaintableButton _brColor     = new();
-    private PaintableButton _newCenter = new();
+    private PaintableButton _newCenter   = new();
+    
+    private Button _deleteButton = new();
 
     public RuleEditor(int index)
     {
         Label name = new Label();
         name.Text = $"Rule #{index+1}";
+        _deleteButton.Text = "Remove";
+        _deleteButton.Pressed += QueueFree;
+        _deleteButton.AnchorLeft = 1;
+        _deleteButton.AnchorRight = 1;
+        name.AddChild(_deleteButton);
         AddChild(name);
         AddThemeConstantOverride("separation", 5);
         
@@ -44,8 +51,9 @@ public partial class RuleEditor : VBoxContainer
         arrow.Texture = ResourceLoader.Load<Texture2D>("res://assets/icons/arrow_r.svg");
         arrow.AnchorTop = 0.5f;
         arrow.AnchorBottom = 0.5f;
-        arrow.ExpandMode = TextureRect.ExpandModeEnum.KeepSize;
+        arrow.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         rule.AddChild(arrow);
+        _newCenter.SizeFlagsVertical = SizeFlags.ShrinkCenter;
         rule.AddChild(_newCenter);
         AddChild(rule);
     }
