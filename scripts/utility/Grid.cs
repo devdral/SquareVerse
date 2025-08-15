@@ -1,4 +1,6 @@
-﻿namespace SquareVerse.Utility;
+﻿using Godot;
+
+namespace SquareVerse.Utility;
 
 public class Grid
 {
@@ -31,5 +33,11 @@ public class Grid
             return _grid[x + (y * Height)];
         }
         set => _grid[x + (y * Height)] = value;
+    }
+
+    public Cell this[Vector2I pos]
+    {
+        get => this[pos.X, pos.Y];
+        set => this[pos.X, pos.Y] = value;
     }
 }
