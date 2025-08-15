@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 using SquareVerse.Utility;
 
 namespace SquareVerse;
@@ -45,32 +46,41 @@ public partial class GridUpdater : Node
                         ))
                     {
                         newGrid[x, y] = new Cell(rule.NewCenter);
+                        break;
                     }
                 }
             }
         }
         GridManager.Instance.Grid = newGrid;
     }
-
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool CheckNeighborhood(Grid grid, int atX, int atY, Neighborhood neighborhood)
     {
-        if (grid[atX - 1, atY - 1].Type != neighborhood.TL)
+        if (!CompareCells(grid[atX - 1, atY - 1].Type, neighborhood.TL))
             return false;
-        if (grid[atX, atY - 1].Type != neighborhood.Top)
+        if (!CompareCells(grid[atX, atY - 1].Type, neighborhood.Top))
             return false;
-        if (grid[atX + 1, atY - 1].Type != neighborhood.TR)
+        if (!CompareCells(grid[atX + 1, atY - 1].Type, neighborhood.TR))
             return false;
-        if (grid[atX - 1, atY].Type != neighborhood.Left)
+        if (!CompareCells(grid[atX - 1, atY].Type, neighborhood.Left))
             return false;
         // Center cell already known
-        if (grid[atX + 1, atY].Type != neighborhood.Right)
+        if (!CompareCells(grid[atX + 1, atY].Type, neighborhood.Right))
             return false;
-        if (grid[atX - 1, atY + 1].Type != neighborhood.BL)
+        if (!CompareCells(grid[atX - 1, atY + 1].Type, neighborhood.BL))
             return false;
-        if (grid[atX, atY + 1].Type != neighborhood.Bottom)
+        if (!CompareCells(grid[atX, atY + 1].Type, neighborhood.Bottom))
             return false;
-        if (grid[atX + 1, atY + 1].Type != neighborhood.BR)
+        if (!CompareCells(grid[atX + 1, atY + 1].Type, neighborhood.BR))
             return false;
         return true;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool CompareCells(int kind, int pattern)
+    {
+        // empty in rules is a wildcard
+        return kind == pattern || pattern == -1;
     }
 }
