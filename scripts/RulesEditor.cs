@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Godot.Collections;
 using SquareVerse.Utility;
 
 namespace SquareVerse;
@@ -9,7 +10,7 @@ public partial class RulesEditor : Window
 {
     private Label _noRules;
     private VBoxContainer _editors;
-    private List<RuleEditor> _rules = [];
+    private Array<Node> _children;
 
     public override void _Ready()
     {
@@ -20,8 +21,7 @@ public partial class RulesEditor : Window
     public void OnCreateNew()
     {
         _noRules.Hide();
-        var editor = new RuleEditor(_rules.Count);
-        _rules.Add(editor);
+        var editor = new RuleEditor(_editors.GetChildren().Count);
         _editors.AddChild(editor);
     }
     
@@ -34,7 +34,7 @@ public partial class RulesEditor : Window
             kinds[i].Rules = [];
         }
         
-        foreach (var rule in _rules)
+        foreach (RuleEditor rule in _editors.GetChildren())
         {
             rule.ApplyRule();            
         }
@@ -63,7 +63,7 @@ public partial class RulesEditor : Window
             kinds[i].Rules = [];
         }
 
-        foreach (var editor in _rules)
+        foreach (var editor in _editors.GetChildren())
         {
             editor.QueueFree();
         }
