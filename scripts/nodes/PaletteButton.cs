@@ -14,15 +14,6 @@ public partial class PaletteButton : Button
         Kind = kindId;
         Color = GridManager.Instance.Kinds[kindId].Color;
         Pressed += OnClick;
-    }
-
-    public void OnClick()
-    {
-        UIManager.Instance.SelectedKind = Kind;
-    }
-
-    public override void _Ready()
-    {
         var styleBox = new StyleBoxFlat();
         styleBox.BorderColor = new Color("#a0c7f3");
         styleBox.BorderWidthBottom = 2;
@@ -36,5 +27,10 @@ public partial class PaletteButton : Button
         AddThemeStyleboxOverride("pressed", styleBox);
         SetVSizeFlags(SizeFlags.ShrinkCenter);
         CustomMinimumSize = new Vector2(30, 30);
+    }
+
+    public void OnClick()
+    {
+        UIManager.Instance.SelectedKind = Kind;
     }
 }

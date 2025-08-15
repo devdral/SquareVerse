@@ -6,26 +6,6 @@ namespace SquareVerse;
 
 public partial class GridUpdater : Node
 {
-    public override void _Ready()
-    {
-        // Demo rules
-        // 1: blue
-        GridManager.Instance.Kinds.Add(new Kind(
-            new Color("blue")
-            ));
-        // 2: orange
-        var neighborhood1 = new Neighborhood(
-            1,0,0,
-            0,  0,
-            0,0,0
-            );
-        // empty cells with blue as their TL become blue
-        GridManager.Instance.Kinds[0].AddRule(new Rule(
-            neighborhood1, 1
-            ));
-        GridManager.Instance.Grid[0, 0] = new Cell(1);
-    }
-    
     // Physics process is a fixed update method. Thus, it is appropriate for simulations, especially
     // ones that take a variable amount of time to execute.
     public override void _Process(double delta)

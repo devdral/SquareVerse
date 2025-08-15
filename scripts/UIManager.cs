@@ -10,7 +10,7 @@ public partial class UIManager : Node
     
     public bool Mode { get; set; }
 
-    public int SelectedKind { get; set; } = 1;
+    public int SelectedKind { get; set; } = 0;
 
     public bool Paused { get; set; } = false;
 

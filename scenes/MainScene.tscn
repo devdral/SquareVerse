@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=12 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://bug1pnpvkv2eo" path="res://scripts/Controls.cs" id="5_u1u68"]
 [ext_resource type="Script" uid="uid://nts0acpotae7" path="res://scripts/Palette.cs" id="6_1wiy7"]
 [ext_resource type="Script" uid="uid://c5v4eummdfugr" path="res://scripts/AddKindPopup.cs" id="6_ygjfp"]
+[ext_resource type="Texture2D" uid="uid://d0ivq5d2fcagd" path="res://assets/icons/open_window.svg" id="8_x537r"]
+[ext_resource type="Script" uid="uid://1bbqc6uk1dqy" path="res://scripts/RulesEditor.cs" id="10_cfq0f"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
 
@@ -45,10 +47,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 13.0
-offset_top = -35.5
-offset_right = 470.0
-offset_bottom = 42.5
+offset_left = 12.39
+offset_top = -39.0
+offset_right = 485.39
+offset_bottom = 39.0
 grow_vertical = 2
 theme = SubResource("Theme_c6dvc")
 theme_override_constants/separation = 12
@@ -108,9 +110,19 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Step"
 
+[node name="VSeparator3" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+
+[node name="OpenRulesEditor" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Rules Editor"
+icon = ExtResource("8_x537r")
+
 [node name="AddKindPopup" type="Window" parent="."]
-title = "Add Color to Palette"
-initial_position = 1
+title = "Add Color"
+initial_position = 2
 size = Vector2i(350, 150)
 visible = false
 transient = true
@@ -150,12 +162,77 @@ layout_mode = 2
 text = "Add
 "
 
+[node name="RulesEditorPopup" type="Window" parent="."]
+title = "Rules Editor"
+initial_position = 2
+size = Vector2i(500, 400)
+visible = false
+always_on_top = true
+script = ExtResource("10_cfq0f")
+
+[node name="FormItems" type="VBoxContainer" parent="RulesEditorPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="Tools" type="HBoxContainer" parent="RulesEditorPopup/FormItems"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="NewRule" type="Button" parent="RulesEditorPopup/FormItems/Tools"]
+layout_mode = 2
+text = "New"
+
+[node name="Done" type="Button" parent="RulesEditorPopup/FormItems/Tools"]
+layout_mode = 2
+text = "Done
+"
+
+[node name="VSeparator" type="VSeparator" parent="RulesEditorPopup/FormItems/Tools"]
+layout_mode = 2
+
+[node name="ApplyRules" type="Button" parent="RulesEditorPopup/FormItems/Tools"]
+layout_mode = 2
+text = "Apply"
+
+[node name="ClearAll" type="Button" parent="RulesEditorPopup/FormItems/Tools"]
+layout_mode = 2
+text = "Clear All
+"
+
+[node name="NoRules" type="Label" parent="RulesEditorPopup/FormItems"]
+layout_mode = 2
+text = "No rules yet"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RulesEditorPopup/FormItems"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Items" type="VBoxContainer" parent="RulesEditorPopup/FormItems/ScrollContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Reset" to="UserInterface/TopPanel/Items" method="OnReset"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/PausePlay" to="UserInterface/TopPanel/Items" method="OnTogglePause"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
 [connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]
+[connection signal="close_requested" from="RulesEditorPopup" to="RulesEditorPopup" method="OnCloseRulesEditor"]
+[connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/NewRule" to="RulesEditorPopup" method="OnCreateNew"]
+[connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/Done" to="RulesEditorPopup" method="OnDoneClicked"]
+[connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/ApplyRules" to="RulesEditorPopup" method="OnApplyClicked"]
+[connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/ClearAll" to="RulesEditorPopup" method="OnClearAllClicked"]

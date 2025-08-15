@@ -6,7 +6,7 @@ namespace SquareVerse.Utility;
 public class Kind
 {
     public Color Color;
-    public List<Rule> Rules { get; private set; }
+    public List<Rule> Rules { get; set; }
 
     public Kind(Color color)
     {
