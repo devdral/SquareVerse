@@ -76,6 +76,7 @@ layout_mode = 2
 text = "Palette"
 
 [node name="Palette" type="HBoxContainer" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+visible = false
 layout_mode = 2
 script = ExtResource("6_1wiy7")
 
