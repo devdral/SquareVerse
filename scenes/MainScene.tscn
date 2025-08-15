@@ -71,6 +71,9 @@ layout_mode = 2
 disabled = true
 text = "Viewing"
 
+[node name="VSeparator1" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+
 [node name="PaletteLabel" type="Label" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
 layout_mode = 2
 text = "Palette"
@@ -85,6 +88,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "+"
+
+[node name="VSeparator2" type="VSeparator" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+layout_mode = 2
 
 [node name="Reset" type="Button" parent="UserInterface/TopPanel/Items"]
 layout_mode = 2
