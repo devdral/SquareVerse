@@ -1,6 +1,9 @@
 ﻿namespace SquareVerse.Utility;
 
-public record struct Neighborhood(int TL, int Top, int TR, int Left, int Right, int BL, int Bottom, int BR);
+public record struct Neighborhood(int TL, int Top, int TR, int Left, int Right, int BL, int Bottom, int BR)
+{
+    public Neighborhood() : this(0, 0, 0, 0, 0, 0, 0, 0) {}
+}
 
 public struct Rule
 {

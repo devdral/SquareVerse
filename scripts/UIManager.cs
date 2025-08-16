@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using SquareVerse.Utility;
 
 public partial class UIManager : Node
 {
@@ -13,6 +14,8 @@ public partial class UIManager : Node
     public int SelectedKind { get; set; } = 0;
 
     public bool Paused { get; set; } = false;
+    
+    public SaveConfig SaveConfig { get; set; } = new SaveConfig();
 
     public override void _Ready()
     {

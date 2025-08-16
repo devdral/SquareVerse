@@ -40,4 +40,15 @@ public class Grid
         get => this[pos.X, pos.Y];
         set => this[pos.X, pos.Y] = value;
     }
+
+    public int[] GetPackedGrid()
+    {
+        int[] grid = new int[Width * Height];
+        for (int i = 0; i < Width * Height; i++)
+        {
+            grid[i] = _grid[i].Type;
+        }
+
+        return grid;
+    }
 }
