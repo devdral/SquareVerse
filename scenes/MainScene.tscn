@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=13 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c5v4eummdfugr" path="res://scripts/AddKindPopup.cs" id="6_ygjfp"]
 [ext_resource type="Texture2D" uid="uid://d0ivq5d2fcagd" path="res://assets/icons/open_window.svg" id="8_x537r"]
 [ext_resource type="Script" uid="uid://1bbqc6uk1dqy" path="res://scripts/RulesEditor.cs" id="10_cfq0f"]
+[ext_resource type="Script" uid="uid://bkarmdhdosqir" path="res://scripts/SaveAsPopup.cs" id="11_pjux3"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
 
@@ -120,6 +121,21 @@ size_flags_vertical = 4
 text = "Rules Editor"
 icon = ExtResource("8_x537r")
 
+[node name="VSeparator4" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Save"
+
+[node name="SaveAs" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Save As"
+icon = ExtResource("8_x537r")
+
 [node name="AddKindPopup" type="Window" parent="."]
 title = "Add Color"
 initial_position = 2
@@ -221,6 +237,62 @@ horizontal_scroll_mode = 0
 [node name="Items" type="VBoxContainer" parent="RulesEditorPopup/FormItems/ScrollContainer"]
 layout_mode = 2
 
+[node name="SaveAsPopup" type="Window" parent="."]
+title = "Save Project"
+initial_position = 1
+size = Vector2i(610, 390)
+visible = false
+always_on_top = true
+script = ExtResource("11_pjux3")
+
+[node name="FormItems" type="VBoxContainer" parent="SaveAsPopup"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 42.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PathPick" type="HBoxContainer" parent="SaveAsPopup/FormItems"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="LocationLabel" type="Label" parent="SaveAsPopup/FormItems/PathPick"]
+layout_mode = 2
+text = "Location"
+
+[node name="LineEdit" type="LineEdit" parent="SaveAsPopup/FormItems/PathPick"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Browse" type="Button" parent="SaveAsPopup/FormItems/PathPick"]
+layout_mode = 2
+text = "Browse
+"
+
+[node name="InfoIncluded" type="Label" parent="SaveAsPopup/FormItems"]
+layout_mode = 2
+text = "Palette colors are included by default."
+
+[node name="IncludeRules" type="CheckButton" parent="SaveAsPopup/FormItems"]
+layout_mode = 2
+text = "Include Rules
+"
+
+[node name="IncludeBoard" type="CheckButton" parent="SaveAsPopup/FormItems"]
+layout_mode = 2
+text = "Include Board State"
+
+[node name="Finish" type="Button" parent="SaveAsPopup/FormItems"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Save"
+
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
@@ -228,6 +300,7 @@ layout_mode = 2
 [connection signal="pressed" from="UserInterface/TopPanel/Items/PausePlay" to="UserInterface/TopPanel/Items" method="OnTogglePause"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/SaveAs" to="SaveAsPopup" method="OnOpen"]
 [connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]
@@ -236,3 +309,9 @@ layout_mode = 2
 [connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/Done" to="RulesEditorPopup" method="OnDoneClicked"]
 [connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/ApplyRules" to="RulesEditorPopup" method="OnApplyClicked"]
 [connection signal="pressed" from="RulesEditorPopup/FormItems/Tools/ClearAll" to="RulesEditorPopup" method="OnClearAllClicked"]
+[connection signal="close_requested" from="SaveAsPopup" to="SaveAsPopup" method="OnClose"]
+[connection signal="text_changed" from="SaveAsPopup/FormItems/PathPick/LineEdit" to="SaveAsPopup" method="OnFilePathChanged"]
+[connection signal="pressed" from="SaveAsPopup/FormItems/PathPick/Browse" to="SaveAsPopup" method="OnBrowseClicked"]
+[connection signal="toggled" from="SaveAsPopup/FormItems/IncludeRules" to="SaveAsPopup" method="OnIncludeRulesToggled"]
+[connection signal="toggled" from="SaveAsPopup/FormItems/IncludeBoard" to="SaveAsPopup" method="OnIncludeBoardToggled"]
+[connection signal="pressed" from="SaveAsPopup/FormItems/Finish" to="SaveAsPopup" method="OnSave"]
