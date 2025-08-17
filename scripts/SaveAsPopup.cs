@@ -69,6 +69,7 @@ public partial class SaveAsPopup : Window
         _fileDialog.FileMode = FileDialog.FileModeEnum.SaveFile;
         _fileDialog.ModeOverridesTitle = false;
         _fileDialog.Title = "Select Location";
+        _fileDialog.Access = FileDialog.AccessEnum.Filesystem;
         _fileDialog.InitialPosition = WindowInitialPosition.CenterMainWindowScreen;
         _fileDialog.SetFlag(Flags.AlwaysOnTop, true);
         _fileDialog.GetOkButton().Pressed += FinishBrowsing;

@@ -65,6 +65,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [resource]
+AcceptDialog/styles/panel = ExtResource("1_5x3i2")
 Button/colors/font_color = Color(0.0406175, 0.130165, 0.154469, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 1)
 Button/styles/disabled = SubResource("StyleBoxFlat_wl1kw")

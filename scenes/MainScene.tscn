@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=17 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -13,6 +13,22 @@
 [ext_resource type="Script" uid="uid://bkarmdhdosqir" path="res://scripts/SaveAsPopup.cs" id="11_pjux3"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_pjux3"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_kp0ql"]
+events = [SubResource("InputEventKey_pjux3")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_o3jky"]
+device = -1
+ctrl_pressed = true
+keycode = 79
+
+[sub_resource type="Shortcut" id="Shortcut_xnxdc"]
+events = [SubResource("InputEventKey_o3jky")]
 
 [node name="MainScene" type="Node2D"]
 
@@ -128,12 +144,20 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+shortcut = SubResource("Shortcut_kp0ql")
 text = "Save"
 
 [node name="SaveAs" type="Button" parent="UserInterface/TopPanel/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Save As"
+icon = ExtResource("8_x537r")
+
+[node name="Open" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_xnxdc")
+text = "Open"
 icon = ExtResource("8_x537r")
 
 [node name="AddKindPopup" type="Window" parent="."]
@@ -293,6 +317,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Save"
 
+[connection signal="SaveAsRequested" from="UserInterface/TopPanel/Items" to="SaveAsPopup" method="OnOpen"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
@@ -300,7 +325,9 @@ text = "Save"
 [connection signal="pressed" from="UserInterface/TopPanel/Items/PausePlay" to="UserInterface/TopPanel/Items" method="OnTogglePause"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/Save" to="UserInterface/TopPanel/Items" method="OnSaveClicked"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/SaveAs" to="SaveAsPopup" method="OnOpen"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/Open" to="UserInterface/TopPanel/Items" method="OnOpen"]
 [connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]

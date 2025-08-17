@@ -23,7 +23,7 @@ public partial class PaintableButton : Button
         ButtonMask = MouseButtonMask.Left | MouseButtonMask.Middle | MouseButtonMask.Right;
     }
 
-    private void SetStyles()
+    public void SetStyles()
     {
         // Wildcard
         if (Kind == -1)
