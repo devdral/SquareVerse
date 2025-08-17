@@ -71,7 +71,7 @@ public partial class Controls : HBoxContainer
             UIManager.Instance.SaveConfig.IncludeBoard = false;
             var oldGrid = GridManager.Instance.Grid;
             GridManager.Instance.Grid = new Grid(oldGrid.Width, oldGrid.Height);
-        }   
+        }
         else
         {
             UIManager.Instance.SaveConfig.IncludeBoard = true;
@@ -125,7 +125,7 @@ public partial class Controls : HBoxContainer
 
     public void OnSaveClicked()
     {
-        if (UIManager.Instance.SaveConfig.FilePath != "")
+        if (UIManager.Instance.SaveConfig.FilePath is not null)
         {
             var saveConfig = UIManager.Instance.SaveConfig;
             if (saveConfig is null ||
