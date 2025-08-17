@@ -75,6 +75,8 @@ public partial class EditCursor : Node2D
         {
             if (mouseButton.Pressed && UIManager.Instance.Mode == UIManager.EDIT)
             {
+                if (!(x >= 0 && x < grid.Width && y >= 0 && y < grid.Height))
+                    return;
                 if (mouseButton.ButtonIndex == MouseButton.Left)
                 {
                     grid[x, y] = new Cell(UIManager.Instance.SelectedKind);
