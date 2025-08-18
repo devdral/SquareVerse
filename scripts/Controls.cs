@@ -12,11 +12,13 @@ public partial class Controls : HBoxContainer
     private Button _pausePlay;
     private Button _step;
     private FileDialog _fileDialog;
+    private Label _fpsDisplay;
 
     public override void _Ready()
     {
         _pausePlay = GetNode<Button>("PausePlay");
         _step = GetNode<Button>("Step");
+        _fpsDisplay = GetNode<Label>("FrameRate");
     }
 
     public void OnReset()
@@ -38,6 +40,8 @@ public partial class Controls : HBoxContainer
         _fileDialog.Title = "Open Project";
         _fileDialog.Access = FileDialog.AccessEnum.Filesystem;
         _fileDialog.FileMode = FileDialog.FileModeEnum.OpenFile;
+        _fileDialog.Size = new Vector2I(800, 600);
+        _fileDialog.SetCurrentDir(OS.GetUserDataDir());
         _fileDialog.InitialPosition = Window.WindowInitialPosition.CenterMainWindowScreen;
         _fileDialog.SetFlag(Window.Flags.AlwaysOnTop, true);
         _fileDialog.FileSelected += FinishBrowsing;
@@ -153,6 +157,30 @@ public partial class Controls : HBoxContainer
         }
     }
 
+    public void OnNewProject()
+    {
+        var palette = GetNode<Palette>("Palette");
+        foreach (var child in palette.GetChildren())
+        {
+            child.QueueFree();
+        }
+        GridManager.Instance.Kinds = [GridManager.Instance.Kinds[0]];
+        
+        var oldGrid = GridManager.Instance.Grid;
+        GridManager.Instance.Grid = new Grid(oldGrid.Width, oldGrid.Height);
+        
+        var rulesEditor = GetNode<VBoxContainer>("../../../RulesEditorPopup/FormItems");
+        rulesEditor.GetNode<Label>("NoRules").Show();
+        foreach (var editor in rulesEditor
+                     .GetNode<VBoxContainer>("ScrollContainer/Items")
+                     .GetChildren())
+        {
+            editor.QueueFree();
+        }
+        UIManager.Instance.SaveConfig = new SaveConfig();
+        UIManager.Instance.SelectedKind = GridManager.EMPTY;
+    }
+
     public override void _Process(double delta)
     {
         if (!UIManager.Instance.Paused)
@@ -163,5 +191,7 @@ public partial class Controls : HBoxContainer
         {
             _step.Show();
         }
+        
+        _fpsDisplay.Text = $"{Engine.GetFramesPerSecond()} FPS";
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=19 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -21,6 +21,14 @@ keycode = 83
 
 [sub_resource type="Shortcut" id="Shortcut_kp0ql"]
 events = [SubResource("InputEventKey_pjux3")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_kp0ql"]
+device = -1
+ctrl_pressed = true
+keycode = 78
+
+[sub_resource type="Shortcut" id="Shortcut_08o8g"]
+events = [SubResource("InputEventKey_kp0ql")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_o3jky"]
 device = -1
@@ -147,6 +155,12 @@ size_flags_vertical = 4
 shortcut = SubResource("Shortcut_kp0ql")
 text = "Save"
 
+[node name="New" type="Button" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_08o8g")
+text = "New"
+
 [node name="SaveAs" type="Button" parent="UserInterface/TopPanel/Items"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -159,6 +173,13 @@ size_flags_vertical = 4
 shortcut = SubResource("Shortcut_xnxdc")
 text = "Open"
 icon = ExtResource("8_x537r")
+
+[node name="VSeparator5" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+
+[node name="FrameRate" type="Label" parent="UserInterface/TopPanel/Items"]
+layout_mode = 2
+text = "? FPS"
 
 [node name="AddKindPopup" type="Window" parent="."]
 title = "Add Color"
@@ -326,6 +347,7 @@ text = "Save"
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Save" to="UserInterface/TopPanel/Items" method="OnSaveClicked"]
+[connection signal="pressed" from="UserInterface/TopPanel/Items/New" to="UserInterface/TopPanel/Items" method="OnNewProject"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/SaveAs" to="SaveAsPopup" method="OnOpen"]
 [connection signal="pressed" from="UserInterface/TopPanel/Items/Open" to="UserInterface/TopPanel/Items" method="OnOpen"]
 [connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
