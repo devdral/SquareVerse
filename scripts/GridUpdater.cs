@@ -7,6 +7,8 @@ namespace SquareVerse;
 
 public partial class GridUpdater : Node
 {
+    private Random _rng = new Random();
+    
     // Physics process is a fixed update method. Thus, it is appropriate for simulations, especially
     // ones that take a variable amount of time to execute.
     public override void _Process(double delta)
@@ -28,15 +30,15 @@ public partial class GridUpdater : Node
 
     public void Update()
     {
-        var grid = GridManager.Instance.Grid;
+        var grid = GridManager.Instance.PrevGrid;
         var kinds = GridManager.Instance.Kinds;
-        var newGrid = new Grid(grid);
         for (int x = 0; x < grid.Width; x++)
         {
             for (int y = 0; y < grid.Height; y++)
             {
                 var cell = grid[x, y];
                 var kind = kinds[cell.Type];
+                var conversionCandidate = cell.Type;
                 foreach (var rule in kind.Rules)
                 {
                     if (CheckNeighborhood(
@@ -45,13 +47,15 @@ public partial class GridUpdater : Node
                             rule.Neighborhood
                         ))
                     {
-                        newGrid[x, y] = new Cell(rule.NewCenter);
-                        break;
+                        conversionCandidate = rule.NewCenter;
+                        if (_rng.NextSingle() >= 0.3)
+                            break;
                     }
                 }
+                GridManager.Instance.Grid[x, y] = new Cell(conversionCandidate);
             }
         }
-        GridManager.Instance.Grid = newGrid;
+        GridManager.Instance.SwapGrid();
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

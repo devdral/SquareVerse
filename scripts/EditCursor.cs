@@ -19,7 +19,7 @@ public partial class EditCursor : Node2D
         var mousePos = GetGlobalMousePosition();
         int x = (int)Mathf.Floor(mousePos.X / 10);
         int y = (int)Mathf.Floor(mousePos.Y / 10);
-        var grid = GridManager.Instance.Grid;
+        var grid = GridManager.Instance.PrevGrid;
         if (@event is InputEventMouseMotion)
         {
             Visible = false;
