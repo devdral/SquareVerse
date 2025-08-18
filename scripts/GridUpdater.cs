@@ -24,8 +24,8 @@ public partial class GridUpdater : Node
 
     public void Step()
     {
-        for (int i = 0; i < 8; i++)
-            Update();
+        // for (int i = 0; i < 8; i++)
+        Update();
     }
 
     public void Update()
@@ -38,7 +38,8 @@ public partial class GridUpdater : Node
             {
                 var cell = grid[x, y];
                 var kind = kinds[cell.Type];
-                var conversionCandidate = cell.Type;
+                kind.ConversionCandidates[0] = cell.Type;
+                var candidateIndex = 0;
                 foreach (var rule in kind.Rules)
                 {
                     if (CheckNeighborhood(
@@ -47,12 +48,13 @@ public partial class GridUpdater : Node
                             rule.Neighborhood
                         ))
                     {
-                        conversionCandidate = rule.NewCenter;
-                        if (_rng.NextSingle() >= 0.3)
-                            break;
+                        kind.ConversionCandidates[candidateIndex] = rule.NewCenter;
+                        candidateIndex++;
                     }
                 }
-                GridManager.Instance.Grid[x, y] = new Cell(conversionCandidate);
+                GridManager.Instance.Grid[x, y] = new Cell(
+                    kind.ConversionCandidates[_rng.Next(candidateIndex)]
+                    );
             }
         }
         GridManager.Instance.SwapGrid();

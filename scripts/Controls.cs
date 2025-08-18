@@ -24,7 +24,7 @@ public partial class Controls : HBoxContainer
     public void OnReset()
     {
         var grid = GridManager.Instance.Grid;
-        GridManager.Instance.Grid = new Grid(grid.Width, grid.Height);
+        GridManager.Instance.PrevGrid = new Grid(grid.Width, grid.Height);
     }
 
     public void OnTogglePause()
@@ -121,7 +121,7 @@ public partial class Controls : HBoxContainer
                         rule.BL, rule.Bottom, rule.BR
                     ), rule.NewCenter
                 );
-                GridManager.Instance.Kinds[rule.OldCenter].Rules.Add(ruleStruct);
+                GridManager.Instance.Kinds[rule.OldCenter].AddRule(ruleStruct);
                 ruleEditors.AddChild(new RuleEditor(rule.OldCenter, ruleStruct, i));
             }
         }
