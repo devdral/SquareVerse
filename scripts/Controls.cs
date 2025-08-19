@@ -25,6 +25,7 @@ public partial class Controls : HBoxContainer
     {
         var grid = GridManager.Instance.Grid;
         GridManager.Instance.PrevGrid = new Grid(grid.Width, grid.Height);
+        GridManager.Instance.Grid = new Grid(grid.Width, grid.Height);
     }
 
     public void OnTogglePause()
@@ -110,7 +111,7 @@ public partial class Controls : HBoxContainer
         else
         {
             ruleEditor.GetNode<Label>("NoRules").Hide();            
-            UIManager.Instance.SaveConfig.IncludeBoard = true;
+            UIManager.Instance.SaveConfig.IncludeRules = true;
             for (var i = 0; i < projectFile.Rules.Count; i++)
             {
                 var rule = projectFile.Rules[i];

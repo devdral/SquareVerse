@@ -125,6 +125,6 @@ public partial class RuleEditor : VBoxContainer
             _leftColor.Kind,                    _rightColor.Kind,
             _blColor.Kind,   _bottomColor.Kind, _brColor.Kind
             );
-        GridManager.Instance.Kinds[_centerColor.Kind].Rules.Add( new Rule(neighborhood, _newCenter.Kind));
+        GridManager.Instance.Kinds[_centerColor.Kind].AddRule( new Rule(neighborhood, _newCenter.Kind));
     }
 }

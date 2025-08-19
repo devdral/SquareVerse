@@ -15,7 +15,7 @@ public partial class GridRenderer : Node2D
     
     public override void _Draw()
     {
-        var grid = GridManager.Instance.Grid;
+        var grid = GridManager.Instance.PrevGrid;
         var gridManager = GridManager.Instance;
         for (int y = 0; y < grid.Height; y++)
         {
