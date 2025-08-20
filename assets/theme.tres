@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bmdolbpo18qq3"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bmdolbpo18qq3"]
 
 [ext_resource type="StyleBox" uid="uid://kat0u3is5hrr" path="res://assets/panel_stylebox.tres" id="1_5x3i2"]
+[ext_resource type="StyleBox" uid="uid://y7l0b8ybu5cl" path="res://assets/button_stylebox.tres" id="2_lu33j"]
+[ext_resource type="StyleBox" uid="uid://cehejxfw5gjvg" path="res://assets/button_panel_stylebox.tres" id="3_wycmq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl1kw"]
 content_margin_left = 7.0
@@ -21,17 +23,6 @@ content_margin_top = 7.0
 content_margin_right = 7.0
 content_margin_bottom = 7.0
 bg_color = Color(0.476859, 0.680854, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x3i2"]
-content_margin_left = 7.0
-content_margin_top = 7.0
-content_margin_right = 7.0
-content_margin_bottom = 7.0
-bg_color = Color(0.627451, 0.780392, 0.952941, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -71,8 +62,16 @@ Button/colors/font_disabled_color = Color(1, 1, 1, 1)
 Button/styles/disabled = SubResource("StyleBoxFlat_wl1kw")
 Button/styles/focus = SubResource("StyleBoxEmpty_5x3i2")
 Button/styles/hover = SubResource("StyleBoxFlat_x2pqw")
-Button/styles/normal = SubResource("StyleBoxFlat_5x3i2")
+Button/styles/normal = ExtResource("2_lu33j")
 Button/styles/pressed = SubResource("StyleBoxFlat_lu33j")
 CheckButton/colors/font_color = Color(0.0392157, 0.129412, 0.152941, 1)
 LineEdit/styles/normal = SubResource("StyleBoxFlat_wycmq")
+OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+OptionButton/styles/hover = ExtResource("3_wycmq")
+OptionButton/styles/normal = ExtResource("3_wycmq")
+OptionButton/styles/pressed = ExtResource("3_wycmq")
 Panel/styles/panel = ExtResource("1_5x3i2")
+PopupMenu/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+PopupMenu/colors/font_hover_color = Color(0.87451, 0.87451, 0.87451, 1)
+PopupMenu/styles/hover = ExtResource("3_wycmq")
+PopupMenu/styles/panel = ExtResource("3_wycmq")

@@ -20,7 +20,7 @@ public partial class GridManager : Node
     {
         Grid = _gridA;
         PrevGrid = _gridB;
-        Kinds = [new Kind(Color.Color8(0,0,0,0))];
+        Kinds = [new Kind(Color.Color8(0,0,0))];
         Instance = this;
     }
 

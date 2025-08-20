@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://d0ivq5d2fcagd" path="res://assets/icons/open_window.svg" id="8_x537r"]
 [ext_resource type="Script" uid="uid://1bbqc6uk1dqy" path="res://scripts/RulesEditor.cs" id="10_cfq0f"]
 [ext_resource type="Script" uid="uid://bkarmdhdosqir" path="res://scripts/SaveAsPopup.cs" id="11_pjux3"]
+[ext_resource type="Script" uid="uid://3l26if2uuylf" path="res://scripts/ExportPopup.cs" id="12_o3jky"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
 
@@ -182,11 +183,20 @@ shortcut = SubResource("Shortcut_xnxdc")
 text = "Open"
 icon = ExtResource("8_x537r")
 
-[node name="VSeparator5" type="VSeparator" parent="UserInterface/TopPanel/Items"]
 [node name="VSeparator5" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 
-[node name="FrameRate" type="Label" parent="UserInterface/TopPanel/Items"]
+[node name="Export" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Export
+"
+icon = ExtResource("8_x537r")
+
+[node name="VSeparator6" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
+layout_mode = 2
+
+[node name="FrameRate" type="Label" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 text = "? FPS"
 
@@ -347,19 +357,84 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Save"
 
-[connection signal="SaveAsRequested" from="UserInterface/TopPanel/Items" to="SaveAsPopup" method="OnOpen"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterEdit" to="UserInterface/TopPanel/Items/Modes" method="OnEnterEdit"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Modes/EnterView" to="UserInterface/TopPanel/Items/Modes" method="OnEnterView"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Reset" to="UserInterface/TopPanel/Items" method="OnReset"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/PausePlay" to="UserInterface/TopPanel/Items" method="OnTogglePause"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Step" to="GridUpdater" method="Update"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Save" to="UserInterface/TopPanel/Items" method="OnSaveClicked"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/New" to="UserInterface/TopPanel/Items" method="OnNewProject"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/SaveAs" to="SaveAsPopup" method="OnOpen"]
-[connection signal="pressed" from="UserInterface/TopPanel/Items/Open" to="UserInterface/TopPanel/Items" method="OnOpen"]
-[connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/Items/Palette" method="AddKind"]
+[node name="ExportPopup" type="Window" parent="."]
+title = "Export"
+initial_position = 2
+size = Vector2i(610, 210)
+visible = false
+transient = true
+always_on_top = true
+script = ExtResource("12_o3jky")
+
+[node name="FormItems" type="VBoxContainer" parent="ExportPopup"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -57.5
+offset_right = -10.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="PathPick" type="HBoxContainer" parent="ExportPopup/FormItems"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="LocationLabel" type="Label" parent="ExportPopup/FormItems/PathPick"]
+layout_mode = 2
+text = "Location"
+
+[node name="LineEdit" type="LineEdit" parent="ExportPopup/FormItems/PathPick"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Browse" type="Button" parent="ExportPopup/FormItems/PathPick"]
+layout_mode = 2
+text = "Browse
+"
+
+[node name="FormatPick" type="HBoxContainer" parent="ExportPopup/FormItems"]
+layout_mode = 2
+
+[node name="FormatLabel" type="Label" parent="ExportPopup/FormItems/FormatPick"]
+layout_mode = 2
+text = "Format"
+
+[node name="FormatChoose" type="OptionButton" parent="ExportPopup/FormItems/FormatPick"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "PNG"
+popup/item_0/id = 0
+popup/item_1/text = "JPG"
+popup/item_1/id = 1
+popup/item_2/text = "WEBP"
+popup/item_2/id = 2
+
+[node name="Export" type="Button" parent="ExportPopup/FormItems"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Export
+"
+
+[connection signal="SaveAsRequested" from="UserInterface/TopPanel/ScrollContainer/Items" to="SaveAsPopup" method="OnOpen"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Modes/EnterEdit" to="UserInterface/TopPanel/ScrollContainer/Items/Modes" method="OnEnterEdit"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Modes/EnterView" to="UserInterface/TopPanel/ScrollContainer/Items/Modes" method="OnEnterView"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Reset" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnReset"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/PausePlay" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnTogglePause"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Step" to="GridUpdater" method="Update"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Save" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnSaveClicked"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/New" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnNewProject"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/SaveAs" to="SaveAsPopup" method="OnOpen"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Open" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnOpen"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Export" to="ExportPopup" method="OnOpen"]
+[connection signal="KindCreated" from="AddKindPopup" to="UserInterface/TopPanel/ScrollContainer/Items/Palette" method="AddKind"]
 [connection signal="close_requested" from="AddKindPopup" to="AddKindPopup" method="OnClose"]
 [connection signal="pressed" from="AddKindPopup/FormItems/Add" to="AddKindPopup" method="OnConfirmPressed"]
 [connection signal="close_requested" from="RulesEditorPopup" to="RulesEditorPopup" method="OnCloseRulesEditor"]
@@ -373,3 +448,8 @@ text = "Save"
 [connection signal="toggled" from="SaveAsPopup/FormItems/IncludeRules" to="SaveAsPopup" method="OnIncludeRulesToggled"]
 [connection signal="toggled" from="SaveAsPopup/FormItems/IncludeBoard" to="SaveAsPopup" method="OnIncludeBoardToggled"]
 [connection signal="pressed" from="SaveAsPopup/FormItems/Finish" to="SaveAsPopup" method="OnSave"]
+[connection signal="close_requested" from="ExportPopup" to="ExportPopup" method="OnClose"]
+[connection signal="text_changed" from="ExportPopup/FormItems/PathPick/LineEdit" to="ExportPopup" method="OnFilePathChanged"]
+[connection signal="pressed" from="ExportPopup/FormItems/PathPick/Browse" to="ExportPopup" method="OnBrowseClicked"]
+[connection signal="item_selected" from="ExportPopup/FormItems/FormatPick/FormatChoose" to="ExportPopup" method="OnFormatChanged"]
+[connection signal="pressed" from="ExportPopup/FormItems/Export" to="ExportPopup" method="OnExport"]
