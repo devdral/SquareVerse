@@ -92,7 +92,7 @@ public partial class Controls : HBoxContainer
             }
         }
 
-        var ruleEditor = GetNode<VBoxContainer>("../../../RulesEditorPopup/FormItems");
+        var ruleEditor = GetNode<VBoxContainer>("/root/MainScene/RulesEditorPopup/FormItems");
         var ruleEditors = ruleEditor.GetNode<VBoxContainer>("ScrollContainer/Items");
         foreach (var child in ruleEditors.GetChildren())
         {
@@ -133,9 +133,6 @@ public partial class Controls : HBoxContainer
         if (UIManager.Instance.SaveConfig.FilePath is not null)
         {
             var saveConfig = UIManager.Instance.SaveConfig;
-            if (saveConfig is null ||
-                saveConfig.FilePath == "")
-                return;
             var fileResource = new ProjectFile();
             fileResource.StorePalette();
             if (saveConfig.IncludeBoard)
@@ -169,8 +166,9 @@ public partial class Controls : HBoxContainer
         
         var oldGrid = GridManager.Instance.Grid;
         GridManager.Instance.Grid = new Grid(oldGrid.Width, oldGrid.Height);
+        GridManager.Instance.PrevGrid = new Grid(oldGrid.Width, oldGrid.Height);
         
-        var rulesEditor = GetNode<VBoxContainer>("../../../RulesEditorPopup/FormItems");
+        var rulesEditor = GetNode<VBoxContainer>("/root/MainScene/RulesEditorPopup/FormItems");
         rulesEditor.GetNode<Label>("NoRules").Show();
         foreach (var editor in rulesEditor
                      .GetNode<VBoxContainer>("ScrollContainer/Items")

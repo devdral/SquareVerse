@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=20 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -67,107 +67,115 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Items" type="HBoxContainer" parent="UserInterface/TopPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UserInterface/TopPanel"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 14
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 12.39
-offset_top = -39.0
-offset_right = 485.39
-offset_bottom = 39.0
+offset_left = 9.0
+offset_top = -42.5
+offset_right = -7.0
+offset_bottom = 43.5
+grow_horizontal = 2
 grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="Items" type="HBoxContainer" parent="UserInterface/TopPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = SubResource("Theme_c6dvc")
 theme_override_constants/separation = 12
 script = ExtResource("5_u1u68")
 
-[node name="ModesLabel" type="Label" parent="UserInterface/TopPanel/Items"]
+[node name="ModesLabel" type="Label" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 text = "Modes"
 
-[node name="Modes" type="VBoxContainer" parent="UserInterface/TopPanel/Items"]
+[node name="Modes" type="VBoxContainer" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 script = ExtResource("4_611at")
 
-[node name="EnterEdit" type="Button" parent="UserInterface/TopPanel/Items/Modes"]
+[node name="EnterEdit" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items/Modes"]
 layout_mode = 2
 text = "Editing"
 
-[node name="EnterView" type="Button" parent="UserInterface/TopPanel/Items/Modes"]
+[node name="EnterView" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items/Modes"]
 layout_mode = 2
 disabled = true
 text = "Viewing"
 
-[node name="VSeparator1" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+[node name="VSeparator1" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 
-[node name="PaletteLabel" type="Label" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+[node name="PaletteLabel" type="Label" parent="UserInterface/TopPanel/ScrollContainer/Items" groups=["EditControl"]]
 layout_mode = 2
 text = "Palette"
 
-[node name="Palette" type="HBoxContainer" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+[node name="Palette" type="HBoxContainer" parent="UserInterface/TopPanel/ScrollContainer/Items" groups=["EditControl"]]
 visible = false
 layout_mode = 2
 script = ExtResource("6_1wiy7")
 
-[node name="AddKind" type="Button" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+[node name="AddKind" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items" groups=["EditControl"]]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "+"
 
-[node name="VSeparator2" type="VSeparator" parent="UserInterface/TopPanel/Items" groups=["EditControl"]]
+[node name="VSeparator2" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items" groups=["EditControl"]]
 layout_mode = 2
 
-[node name="Reset" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="Reset" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Reset"
 
-[node name="PausePlay" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="PausePlay" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 custom_minimum_size = Vector2(61, 37)
 layout_mode = 2
 size_flags_vertical = 4
 text = "Pause"
 
-[node name="Step" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="Step" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Step"
 
-[node name="VSeparator3" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+[node name="VSeparator3" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 
-[node name="OpenRulesEditor" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="OpenRulesEditor" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "Rules Editor"
 icon = ExtResource("8_x537r")
 
-[node name="VSeparator4" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+[node name="VSeparator4" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 
-[node name="Save" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="Save" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 shortcut = SubResource("Shortcut_kp0ql")
 text = "Save"
 
-[node name="New" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="New" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 shortcut = SubResource("Shortcut_08o8g")
 text = "New"
 
-[node name="SaveAs" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="SaveAs" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Save As"
 icon = ExtResource("8_x537r")
 
-[node name="Open" type="Button" parent="UserInterface/TopPanel/Items"]
+[node name="Open" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 size_flags_vertical = 4
 shortcut = SubResource("Shortcut_xnxdc")
@@ -175,6 +183,7 @@ text = "Open"
 icon = ExtResource("8_x537r")
 
 [node name="VSeparator5" type="VSeparator" parent="UserInterface/TopPanel/Items"]
+[node name="VSeparator5" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 layout_mode = 2
 
 [node name="FrameRate" type="Label" parent="UserInterface/TopPanel/Items"]
