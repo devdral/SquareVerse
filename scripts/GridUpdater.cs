@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using SquareVerse.Utility;
 
 namespace SquareVerse;
@@ -32,31 +33,37 @@ public partial class GridUpdater : Node
     {
         var grid = GridManager.Instance.PrevGrid;
         var kinds = GridManager.Instance.Kinds;
-        for (int x = 0; x < grid.Width; x++)
+
+        void ProcessCell(QualifiedCell qualifiedCell)
         {
-            for (int y = 0; y < grid.Height; y++)
+            var cell = qualifiedCell.Cell;
+            var x = qualifiedCell.Coordinate.X;
+            var y = qualifiedCell.Coordinate.Y;
+            var kind = kinds[cell.Type];
+            var conversionCandidate = cell.Type;
+            var numToProcess = _rng.Next(0, kind.Rules.Count);
+            var count = 0;
+            foreach (var rule in kind.Rules)
             {
-                var cell = grid[x, y];
-                var kind = kinds[cell.Type];
-                kind.ConversionCandidates[0] = cell.Type;
-                var candidateIndex = 0;
-                foreach (var rule in kind.Rules)
+                if (CheckNeighborhood(
+                        grid,
+                        x, y,
+                        rule.Neighborhood
+                    ))
                 {
-                    if (CheckNeighborhood(
-                            grid,
-                            x, y,
-                            rule.Neighborhood
-                        ))
+                    conversionCandidate = rule.NewCenter;
+                    count++;
+                    if (count > numToProcess)
                     {
-                        kind.ConversionCandidates[candidateIndex] = rule.NewCenter;
-                        candidateIndex++;
+                        break;
                     }
                 }
-                GridManager.Instance.Grid[x, y] = new Cell(
-                    kind.ConversionCandidates[_rng.Next(candidateIndex)]
-                    );
             }
+            GridManager.Instance.Grid[x, y] = new Cell(
+                conversionCandidate
+            );
         }
+        Parallel.ForEach(grid, ProcessCell);
         GridManager.Instance.SwapGrid();
     }
     

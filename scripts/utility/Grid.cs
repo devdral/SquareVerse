@@ -1,8 +1,10 @@
-﻿using Godot;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Godot;
 
 namespace SquareVerse.Utility;
 
-public class Grid
+public class Grid : IEnumerable<QualifiedCell>
 {
     private Cell[] _grid;
     
@@ -51,4 +53,50 @@ public class Grid
 
         return grid;
     }
+
+    public IEnumerator<QualifiedCell> GetEnumerator()
+    {
+        return new GridEnumerator(this);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+}
+
+public class GridEnumerator : IEnumerator<QualifiedCell>
+{
+    private Grid _grid;
+    
+    private int _x;
+    private int _y;
+
+    public GridEnumerator(Grid grid)
+    {
+        _grid = grid;
+    }
+
+    public object Current => new QualifiedCell(_grid[_x, _y], new Vector2I(_x, _y));
+
+    public bool MoveNext()
+    {
+        _x++;
+        if (_x >= _grid.Width)
+        {
+            _x = 0;
+            _y++;
+        }
+        return _y < _grid.Height;
+    }
+
+    public void Reset()
+    {
+        _x = 0;
+        _y = 0;
+    }
+
+    QualifiedCell IEnumerator<QualifiedCell>.Current => new(_grid[_x, _y], new Vector2I(_x, _y));
+
+    public void Dispose() {}
 }
