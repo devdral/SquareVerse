@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ry2vnvuwoua"]
+[gd_scene load_steps=21 format=3 uid="uid://ry2vnvuwoua"]
 
 [ext_resource type="Script" uid="uid://cmtqsluj0vrrs" path="res://scripts/GridRenderer.cs" id="1_echbf"]
 [ext_resource type="Script" uid="uid://cmgfu5vqptvaj" path="res://scripts/GridUpdater.cs" id="2_ibiss"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://1bbqc6uk1dqy" path="res://scripts/RulesEditor.cs" id="10_cfq0f"]
 [ext_resource type="Script" uid="uid://bkarmdhdosqir" path="res://scripts/SaveAsPopup.cs" id="11_pjux3"]
 [ext_resource type="Script" uid="uid://3l26if2uuylf" path="res://scripts/ExportPopup.cs" id="12_o3jky"]
+[ext_resource type="Script" uid="uid://qfvtd6j7ohu1" path="res://scripts/SelectSizePopup.cs" id="13_kp0ql"]
 
 [sub_resource type="Theme" id="Theme_c6dvc"]
 
@@ -128,10 +129,18 @@ text = "+"
 [node name="VSeparator2" type="VSeparator" parent="UserInterface/TopPanel/ScrollContainer/Items" groups=["EditControl"]]
 layout_mode = 2
 
-[node name="Reset" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
+[node name="ResetOptions" type="VBoxContainer" parent="UserInterface/TopPanel/ScrollContainer/Items"]
+layout_mode = 2
+alignment = 1
+
+[node name="Reset" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items/ResetOptions"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Reset"
+
+[node name="Resize" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items/ResetOptions" groups=["EditControl"]]
+layout_mode = 2
+text = "Resize"
 
 [node name="PausePlay" type="Button" parent="UserInterface/TopPanel/ScrollContainer/Items"]
 custom_minimum_size = Vector2(61, 37)
@@ -421,11 +430,69 @@ size_flags_vertical = 4
 text = "Export
 "
 
+[node name="SelectSizePopup" type="Window" parent="."]
+title = "Select Size"
+initial_position = 1
+size = Vector2i(390, 250)
+visible = false
+script = ExtResource("13_kp0ql")
+
+[node name="FormItems" type="VBoxContainer" parent="SelectSizePopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -35.0
+offset_right = 72.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="SelectSizePopup/FormItems"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "New size:"
+
+[node name="WidthPick" type="HBoxContainer" parent="SelectSizePopup/FormItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SelectSizePopup/FormItems/WidthPick"]
+layout_mode = 2
+text = "Width"
+
+[node name="SpinBox" type="SpinBox" parent="SelectSizePopup/FormItems/WidthPick"]
+layout_mode = 2
+allow_greater = true
+suffix = "px"
+
+[node name="HeightPick" type="HBoxContainer" parent="SelectSizePopup/FormItems"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SelectSizePopup/FormItems/HeightPick"]
+layout_mode = 2
+text = "Height"
+
+[node name="SpinBox" type="SpinBox" parent="SelectSizePopup/FormItems/HeightPick"]
+layout_mode = 2
+allow_greater = true
+suffix = "px"
+
+[node name="Apply" type="Button" parent="SelectSizePopup/FormItems"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Apply"
+
 [connection signal="SaveAsRequested" from="UserInterface/TopPanel/ScrollContainer/Items" to="SaveAsPopup" method="OnOpen"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Modes/EnterEdit" to="UserInterface/TopPanel/ScrollContainer/Items/Modes" method="OnEnterEdit"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Modes/EnterView" to="UserInterface/TopPanel/ScrollContainer/Items/Modes" method="OnEnterView"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/AddKind" to="AddKindPopup" method="OnAddKindPressed"]
-[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Reset" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnReset"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/ResetOptions/Reset" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnReset"]
+[connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/ResetOptions/Resize" to="SelectSizePopup" method="OnOpen"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/PausePlay" to="UserInterface/TopPanel/ScrollContainer/Items" method="OnTogglePause"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/Step" to="GridUpdater" method="Update"]
 [connection signal="pressed" from="UserInterface/TopPanel/ScrollContainer/Items/OpenRulesEditor" to="RulesEditorPopup" method="OnOpenRulesEditor"]
@@ -453,3 +520,7 @@ text = "Export
 [connection signal="pressed" from="ExportPopup/FormItems/PathPick/Browse" to="ExportPopup" method="OnBrowseClicked"]
 [connection signal="item_selected" from="ExportPopup/FormItems/FormatPick/FormatChoose" to="ExportPopup" method="OnFormatChanged"]
 [connection signal="pressed" from="ExportPopup/FormItems/Export" to="ExportPopup" method="OnExport"]
+[connection signal="close_requested" from="SelectSizePopup" to="SelectSizePopup" method="OnClose"]
+[connection signal="value_changed" from="SelectSizePopup/FormItems/WidthPick/SpinBox" to="SelectSizePopup" method="OnWidthChanged"]
+[connection signal="value_changed" from="SelectSizePopup/FormItems/HeightPick/SpinBox" to="SelectSizePopup" method="OnHeightChanged"]
+[connection signal="pressed" from="SelectSizePopup/FormItems/Apply" to="SelectSizePopup" method="OnApply"]

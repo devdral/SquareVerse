@@ -16,6 +16,8 @@ public partial class UIManager : Node
     public bool Paused { get; set; } = false;
     
     public SaveConfig SaveConfig { get; set; } = new SaveConfig();
+    
+    public Vector2I GridSize { get; set; } = new(100, 100);
 
     public override void _Ready()
     {
