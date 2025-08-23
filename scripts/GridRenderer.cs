@@ -16,6 +16,17 @@ public partial class GridRenderer : Node2D
     public override void _Draw()
     {
         var grid = GridManager.Instance.PrevGrid;
+        DrawRect(
+            new Rect2(
+                -5,
+                -5,
+                CellWidth * (grid.Width + 1),
+                CellHeight * (grid.Height + 1)
+            ),
+            Colors.AntiqueWhite,
+            false,
+            10
+        );
         var gridManager = GridManager.Instance;
         for (int y = 0; y < grid.Height; y++)
         {
