@@ -6,4 +6,7 @@
   <ItemGroup>
     <Folder Include="scenes\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+  </ItemGroup>
 </Project>
